@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Основной стиль */
+        body {
+            margin: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background: #f2f2f5; /* Светлый фон */
+            color: #222;
+        }
+
+        /* Хедер */
+        header {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            padding: 25px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            color: #333;
+            text-shadow: 0 0 6px rgba(0,0,0,0.05);
+        }
+
+        /* Навигация */
+        nav {
+            margin-top: 15px;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #888;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #555;
+        }
+
+        span {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #555;
+            margin-right: 10px;
+        }
+
+        /* Поиск в стиле Liquid Glass */
+        .search-container {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .search-container input[type="text"] {
+            width: 320px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            border-radius: 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            color: #222;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .search-container input[type="text"]::placeholder {
+            color: #aaa;
+            font-weight: 500;
+        }
+
+        .search-container input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Основной контент */
+        main {
+            padding: 50px;
+            min-height: calc(100vh - 180px);
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JobFinder</h1>
+        <nav>
+            {% if user.is_authenticated %}
+                <span>Привет, {{ user.username }}</span>
+                <a href="{% url 'logout_view' %}">Выйти</a>
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'cart_detail' %}">Корзина</a>
+            {% else %}
+                <a href="{% url 'login_view' %}">Войти</a>
+                <a href="{% url 'register_view' %}">Зарегистрироваться</a>
+            {% endif %}
+        </nav>
+
+        <!-- Поиск -->
+        <div class="search-container">
+            <form method="GET" action="{% url 'index' %}">
+                <input type="text" name="q" placeholder="Поиск резюме...">
+            </form>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer>
+        &copy; 2025 JobFinder. Все права защищены.
+    </footer>
+</body>
+</html>
