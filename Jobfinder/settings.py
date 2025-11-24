@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = 'django-insecure-vx2$oi!=+f@dwk-q2-&%z&(pv*%c&^rko$qf-^=vr1ysm&wn9p'
 DEBUG = False
-ALLOWED_HOSTS = ['jobfinder-zmsv.onrender.com']
+ALLOWED_HOSTS = ['jobfinder-1-y8fx.onrender.com']
 
 # Application definition
 INSTALLED_APPS = [
